@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>streaming thoughts</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="jquery.min.js"><\/script>')</script>
+
+</head>
+
+<body>
+    <style>
+        body {
+            background-image: url(version02img/background_05.png);
+            background-repeat: no-repeat cover;
+            background-size: 400%;
+            background-attachment: local;
+            animation: zoom 10s infinite;
+            -webkit-animation: zoom 10s infinite;
+
+            font-family: MingLiu;
+        }
+
+        @font-face {
+            font-family: Mingliu;
+            src: url(version02img/MINGLIU.ttf);
+        }
+
+        @keyframes zoom {
+            0% {
+                background-size: 100%;
+            }
+
+            50% {
+                background-size: 105%;
+            }
+
+            100% {
+                background-size: 100%;
+            }
+        }
+
+        .stuff {
+            width: 1500px;
+            position: fixed;
+            left: -300px;
+            top: 20px;
+            animation: floatX 5s ease-out infinite;
+            transition: all 0.2s ease;
+        }
+
+        @keyframes floatX {
+            50% {
+                transform: translateX(10px);
+            }
+        }
+
+        .stuff02 {
+            width: 1400px;
+            position: fixed;
+            left: 500px;
+            top: -500px;
+            animation: floatXX 3s ease-out infinite;
+            transition: all 0.2s ease;
+        }
+
+        @keyframes floatXX {
+            50% {
+                transform: translateX(15px);
+            }
+        }
+
+        /*Flexbox von connected chanel*/
+        .flex-container {
+            display: flex;
+            position: fixed;
+            top: 400px;
+            right: 0px;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            left: 200px;
+        }
+
+        @media (max-width:768px) {
+
+            .flex-container {
+                position: fixed;
+                left: -80% !important;
+            }
+        }
+
+        /*END Flexbox von connected chanel*/
+
+        /*connceted chanel*/
+        #connected_bild.hidden {
+            width: 440px;
+            position: fixed !important;
+            transform: translate(50%, 0%);
+            display: none;
+        }
+
+        #connected_bild {
+            width: 440px;
+            position: fixed !important;
+            transform: translate(50%, 0%);
+        }
+
+        #unconnected_bild.hidden {
+            width: 440px;
+            position: fixed !important;
+            transform: translate(50%, 0%);
+            display: none;
+        }
+
+        #unconnected_bild {
+            width: 440px;
+            position: fixed !important;
+            transform: translate(50%, 0%);
+        }
+
+        /*END connceted chanel*/
+
+        /*der Button auf connected chanel (sieht man nicht, leigt über dem Glas als Kreis*/
+        #ASong {
+            position: fixed;
+            cursor: pointer;
+            width: 62px;
+            height: 62px;
+            border-radius: 40px;
+            z-index: 10;
+            border: transparent;
+            background-color: transparent;
+            transform: translate(141%, -10%);
+            border-color: #3ef392;
+        }
+
+        /*END unsichtbarer Button*/
+
+        /*2 leuchtende Kreise*/
+        #glowing_circle.hidden {
+            position: fixed;
+            z-index: 3;
+            width: 62px;
+            height: 62px;
+            border-radius: 40px;
+            border: transparent;
+            background-color: transparent;
+            display: none;
+            transform: translate(141%, -10%);
+            border-color: #3ef392;
+            animation: glowing 1300ms infinite;
+        }
+
+        #glowing_circle {
+            position: fixed;
+            z-index: 3;
+            width: 62px;
+            height: 62px;
+            border-radius: 40px;
+            border: transparent;
+            background-color: transparent;
+            display: block;
+            transform: translate(141%, -10%);
+            border-color: #3ef392;
+            animation: glowing 1300ms infinite;
+        }
+
+        @keyframes glowing {
+            0% {
+                border-color: #3ef392;
+                box-shadow: 0 0 5px #3ef392;
+            }
+
+            50% {
+                border-color: #3ef392;
+                box-shadow: 0 0 20px #3ef392;
+            }
+
+            100% {
+                border-color: #3ef392;
+                box-shadow: 0 0 5px turquoise5;
+            }
+        }
+
+
+        #glowing_circle_second.hidden {
+            position: fixed;
+            z-index: 3;
+            width: 80px;
+            height: 80px;
+            border-radius: 60px;
+            border: transparent;
+            background-color: transparent;
+            display: none;
+            transform: translate(100%, -10%);
+            border-color: #3ef392;
+            animation: glowing 1300ms infinite;
+        }
+
+        #glowing_circle_second {
+            position: fixed;
+            z-index: 3;
+            width: 80px;
+            height: 80px;
+            border-radius: 60px;
+            border: transparent;
+            background-color: transparent;
+            display: block;
+            transform: translate(110%, -8%);
+            border-color: #ff2500;
+            animation: glowing 1300ms infinite;
+        }
+
+        @keyframes glowing {
+            0% {
+                border-color: #ff2500;
+                box-shadow: 0 0 5px #ff2500;
+            }
+
+            50% {
+                border-color: #ff2500;
+                box-shadow: 0 0 20px #ff2500;
+            }
+
+            100% {
+                border-color: #ff2500;
+                box-shadow: 0 0 5px turquoise5;
+            }
+        }
+
+        /*END 2 leuchtende Kreise*/
+
+        /*Hinweis Verbindung wurde hergestellt*/
+        #transfer_approved.hidden {
+            width: 90px;
+            transform: translate(450%, -50%);
+            position: fixed;
+            display: none;
+            z-index: 4;
+        }
+
+        #transfer_approved {
+            width: 90px;
+            transform: translate(450%, -50%);
+            position: fixed;
+            z-index: 4;
+        }
+
+        /*END Hinweis Verbindung wurde hergestellt*/
+
+
+        /*übrige Channels*/
+        .connecting02 {
+            height: 100px;
+            position: fixed;
+            top: 20%;
+            left: 80%;
+            animation: zoomXX 17s infinite ease;
+            -webkit-animation: zoomXX 17s infinite ease;
+        }
+
+        @keyframes zoomXX {
+            0% {
+                height: 100px;
+            }
+
+            50% {
+                height: 80px;
+            }
+
+            100% {
+                height: 100px;
+            }
+        }
+
+        .connecting03 {
+            height: 100px;
+            position: fixed;
+            top: 70%;
+            left: 40%;
+            animation: zoomX 17s infinite ease;
+            -webkit-animation: zoomX 17s infinite ease;
+        }
+
+        @keyframes zoomX {
+            0% {
+                height: 100px;
+            }
+
+            50% {
+                height: 115px;
+            }
+
+            100% {
+                height: 100px;
+            }
+        }
+
+        .connecting04 {
+            height: 80px;
+            position: fixed;
+            top: 85%;
+            left: 5%;
+            animation: floatXXXX 4s ease-out infinite;
+            transition: all 0.1s ease;
+        }
+
+
+        @keyframes floatXXXX {
+            50% {
+                transform: translateX(10px);
+
+            }
+        }
+
+        .connecting05 {
+            height: 90px;
+            position: fixed;
+            top: 90%;
+            left: 60%;
+            animation: floatXXX 3s ease-out infinite;
+            transition: all 0.2s ease;
+        }
+
+
+        @keyframes floatXXX {
+            50% {
+                transform: translateY(5px);
+
+            }
+        }
+
+        .connecting06 {
+            height: 110px;
+            position: fixed;
+            top: 20%;
+            left: 20%;
+            animation: floatXX 3s ease-out infinite;
+            transition: all 0.2s ease;
+        }
+
+
+        @keyframes floatXX {
+            50% {
+                transform: translateY(3px);
+
+            }
+        }
+
+        .connecting07 {
+            height: 70px;
+            position: fixed;
+            top: 7%;
+            left: -2%;
+            animation: floatXXY 3s ease-out infinite;
+            transition: all 0.6s ease;
+        }
+
+
+        @keyframes floatXXY {
+            50% {
+                transform: translateX(4px);
+
+            }
+        }
+
+        /*end übrige Channels*/
+
+        .verlauf {
+            width: 100%;
+            height: 100%;
+            border-color: blueviolet;
+        }
+
+
+
+        div {
+            font-family: MingLiU Regular;
+        }
+
+        .connected_bild {
+            width: 440px;
+            position: fixed !important;
+            transform: translate(50%, 0%);
+        }
+
+
+        /*Zeilenumbruch für connected to...*/
+        .after::after {
+            content: "\A";
+            white-space: pre;
+        }
+
+        .white_Balken {
+            position: fixed;
+            top: 0;
+            right: 25px;
+            width: 64px;
+            height: fit-content;
+            transform: rotate(90deg) translate(0, 30%);
+            margin: -40px;
+        }
+
+        .white_Balken_links {
+            position: fixed;
+            top: 0;
+            left: 25px;
+            width: 64px;
+            height: fit-content;
+            transform: scaleX(-1) rotate(90deg) translate(0, 30%);
+            margin: -40px;
+        }
+
+        .dreikreise {
+            width: 100px;
+            transform: translate(212%, 120%);
+            position: fixed;
+        }
+
+
+        @keyframes opacity {
+            0% {
+                opacity: 100%;
+            }
+
+            50% {
+                opacity: 50%;
+            }
+
+            100% {
+                opacity: 100%;
+            }
+        }
+
+        .you {
+            width: 37vw;
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+        }
+
+        @media(max-width:768px) {
+            .you {
+                width: 80%;
+            }
+        }
+
+
+        /* titel button*/
+        .titel {
+            position: relative;
+            text-align: center !important;
+            justify-content: center !important;
+            top: 0%;
+            z-index: 2;
+            background: none;
+            border: none;
+        }
+
+        .infobox {
+            position: relative;
+            text-align: center !important;
+            justify-content: center !important;
+            top: 0%;
+            z-index: 2;
+            transform: scale(0);
+
+        }
+
+        @media(max-width:768px) {
+            .infobox-img {
+                width: 50% !important;
+            }
+        }
+
+        .infobox.active {
+            transform: scale(1);
+        }
+
+        .infobox-img {
+            width: 30%;
+            margin: -10px;
+        }
+
+        .infobox-close-button {
+            width: 28px;
+
+
+        }
+
+        @media(max-width:768px) {
+            .infobox-close-button {
+                width: 4% !important;
+                position: fixed;
+                top: 0.7%;
+                left: 54.5%;
+            }
+        }
+
+        .close-button {
+            cursor: pointer;
+            z-index: 2;
+            background: none;
+            border: none;
+            position: fixed;
+            top: 2%;
+            left: 52.9%;
+        }
+
+        .open-button {
+            cursor: pointer;
+            z-index: 2;
+            background: none;
+            border: none;
+        }
+
+
+        #overlay {
+            position: fixed;
+            /*opacity: 0;*/
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        #overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .buttonmusic {
+            background-image: url(version02img/glas.png);
+
+        }
+
+        /*end titel button*/
+
+        /*vertial scroll menu*/
+        #vertical_scroll_frame {
+            position: fixed;
+            width: 310px;
+            transform: translate(75%, 70%);
+        }
+
+        #vertical_scroll_frame.hidden {
+            position: fixed;
+            width: 310px;
+            transform: translate(75%, 70%);
+            display: none;
+        }
+
+        #vertical_menu_all {
+            position: fixed;
+            transform: translate(95%, 101%);
+            z-index: 3;
+        }
+
+        #vertical_menu_all.hidden {
+            position: fixed;
+            transform: translate(95%, 101%);
+            z-index: 3;
+            display: none;
+        }
+
+        .vertical-menu {
+            width: 252px;
+            height: 109px;
+            overflow-y: auto;
+            padding: 0px;
+            border-top-left-radius: 45px;
+            border-bottom-left-radius: 45px;
+
+        }
+
+        .vertical-menu a {
+            background-color: transparent;
+            color: black;
+            display: block;
+            padding-left: 13px;
+            padding-top: 1px;
+            padding-bottom: 3px;
+            text-decoration: none;
+
+        }
+
+        .vertical-menu a:hover {
+            background-color: rgb(197, 203, 216);
+            opacity: 80%;
+
+        }
+
+
+
+        /* scroll handle cusomized */
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px;
+            font-family: Mingliu;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px #a2a8b4;
+            border-radius: 11px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: transparent;
+            border-color: #a2a8b4;
+            box-shadow: inset 0 0 5px #a2a8b4;
+            border-radius: 11px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #dee3ed;
+            opacity: 90%;
+            border-color: #a2a8b4;
+            box-shadow: inset 0 0 5px #a2a8b4;
+            border-radius: 11px;
+            filter: blur(4px);
+            -webkit-filter: blur(4px);
+        }
+
+        button {
+            background-color: transparent;
+            border: none;
+            text-align: left;
+            font-family: Mingliu;
+            font-size: 13px;
+            padding: 0px;
+            position: center;
+            align-items: center !important;
+            position: relative;
+            text-align: center;
+            justify-content: center !important;
+        }
+
+        /*END scroll handle cusomized */
+        /*END vertial scroll menu*/
+    </style>
+
+    <!--titel button-->
+    <div id="overlay"></div>
+    <div class="titel">
+        <button class="open-button" data-infobox-target="#openSourceMemory">
+            <img class="infobox-img" src="version02img/titel-05.png"></button>
+    </div>
+
+    <div id="openSourceMemory" class="infobox">
+        <button data-close-button class="close-button">
+            <img class="infobox-close-button" srcset="version02img/close_button.png"></button>
+        <img class="infobox-img" src="version02img/about_02-06.png">
+    </div>
+    <!--end titel button-->
+
+    <!--weiße Balken rechts und links-->
+    <div class="white_Balken">
+        <img src="img/withe_Balken.webp">
+    </div>
+
+    <div class="white_Balken_links">
+        <img src="img/withe_Balken.webp">
+    </div>
+    <!--weiße Balken rechts und links-->
+
+    <!--schwebende fetzen-->
+    <img class="stuff" src="img/fetzen.png">
+    <img class="stuff02" src="img/fetzen02.png">
+    <!--end schwebende fetzen-->
+
+
+    <!--unconnected buttons-->
+    <img class="connecting02" src="version02img/adam.nick_04.06.png">
+    <img class="connecting03" src="version02img/31_steve_jackson_04.06.png">
+    <img class="connecting04" src="version02img/ann_ritchards_04.06.png">
+    <img class="connecting05" src="version02img/min.reader_04.06.png">
+    <img class="connecting06" src="version02img/8823.noon_04.06.png">
+    <img class="connecting07" src="version02img/neuro_0101_04.06.png">
+    <!--end unconnected buttons-->
+
+
+    <!--Flexcontainer von connected chanel-->
+    <!--vertical scroll menu-->
+    <div class="flex-container">
+        <div id="vertical_menu_all" class="hidden">
+            <div class="vertical-menu">
+                <a href="#">
+                    <button value="PLAY" onclick="play()"><audio id="audio" src="version02img/at_the_museum.mov"><i
+                                class="glyphicon glyphicon-play-circle b-play" id="play" onclick="play()"></i></audio>
+                        <strong>//museum//art//cezanne</strong><br> 04-05-2067//05:54PM<br> location//the new art
+                        museum,london</button></a>
+
+                <a href="#">
+                    <button>
+                        <button value="PLAY" onclick="play2()"><audio id="audio2"
+                                src="version02img/digital_garden.mp3"><i class="glyphicon glyphicon-play-circle b-play"
+                                    id="play2" onclick="play2()"></i></audio>
+                            <strong>&nbsp;//vr//digital garden//space</strong><br> 21-05-2067//08:33PM<br>
+                            location//www.vrworld.com</button></a>
+
+                <a href="#"><button>
+                        <strong>&nbsp;//lecture//philosophy//talk</strong><br> 24-06-2067//11:33AM<br>
+                        location//university of sciences</button></a>
+
+                <a href="#"><button>
+                        <strong>&nbsp;//lecture//philosophy//talk</strong><br> 27-06-2067//09:12AM<br>
+                        location//university of sciences</button></a>
+
+                <a href="#"><button>
+                        <strong>&nbsp;//lecture//antroplogy//talk</strong><br> 30-06-2067//08:05AM<br>
+                        location//university of sciences</button></a>
+                <a href="#"><button>
+                        <strong>&nbsp;//vr//adventure//venue</strong><br> 21-05-2067//08:33PM<br>
+                        location//www.vrworld.com</button></a>
+
+                <a href="#"><button>
+                        <strong>&nbsp;//lecture//philosophy//talk</strong><br> 24-06-2067//11:33AM<br>
+                        location//university of sciences</button></a>
+
+                <a href="#"><button>
+                        <strong>&nbsp;//lecture//philosophy//talk</strong><br> 27-06-2067//09:12AM<br>
+                        location//university of sciences</button></a>
+
+                <a href="#"><button>
+                        <strong>&nbsp;//lecture//antroplogy//talk</strong><br> 30-06-2067//08:05AM<br>
+                        location//university of sciences</button></a>
+
+
+            </div>
+        </div>
+        <!--END vertical scroll menu-->
+
+        <img id="vertical_scroll_frame" class="hidden" src="version02img/scroll_frame_05.06.png">
+
+        <!--Flexcontainer von connected chanel-->
+        <button id="ASong" onClick="playPause()">
+            <audio src="version02img/transferred.mp3" autoplay></audio>
+        </button>
+        <div id="glowing_circle" class="hidden"></div>
+        <div id="glowing_circle_second" class="hidden"></div>
+
+        <div id="transfer_approved" class="hidden">
+            <img src="version02img/transfer_approved-07.png" style="width: 230px;">
+        </div>
+
+        <img id="connected_bild" class="hidden" src="version02img/connected_neu02_04.06.png">
+        <img id="unconnected_bild" class="show" src="version02img/connected_neu_unconnectes_04.06.png">
+    </div>
+    <!--END Flexcontainer von connected chanel-->
+
+    <!--nutzender user-->
+    <div>
+        <img class="you" src="version02img/you03.png">
+    </div>
+    <!--nutzender user-->
+
+
+    <!--Java für connected Channel-->
+    <script>
+        var images = document.getElementById("connected_bild");
+        var images = document.getElementById("glowing_circle");
+        var images = document.getElementById("glowing_circle_second");
+        var images = document.getElementById("transfer_approved");
+
+        var images = document.getElementById("vertical_scroll_frame");
+        var div = document.getElementById("vertical_menu_all");
+        var aud = document.getElementById("ASong").children[0];
+
+        var isPlaying = false;
+        aud.pause();
+
+        function playPause() {
+            if (isPlaying) {
+                aud.pause();
+                connected_bild.classList.toggle("hidden");
+                unconnected_bild.classList.toggle("hidden");
+                glowing_circle.classList.toggle("hidden");
+                glowing_circle_second.classList.toggle("hidden");
+                transfer_approved.classList.toggle("hidden");
+                vertical_scroll_frame.classList.toggle("hidden");
+                vertical_menu_all.classList.toggle("hidden");
+            } else {
+                aud.play();
+                connected_bild.classList.toggle("hidden");
+                unconnected_bild.classList.toggle("hidden");
+                glowing_circle.classList.toggle("hidden");
+                glowing_circle_second.classList.toggle("hidden");
+                transfer_approved.classList.toggle("hidden");
+                vertical_scroll_frame.classList.toggle("hidden");
+                vertical_menu_all.classList.toggle("hidden");
+            }
+            isPlaying = !isPlaying;
+        }
+
+    </script>
+    <!--END Java für connected Channel-->
+
+    <!-- Java für about box-->
+    <script>
+        const openInfoboxButtons = document.querySelectorAll('[data-infobox-target]')
+
+        const closeInfoboxButtons = document.querySelectorAll('[data-close-button]')
+
+        const overlay = document.getElementById('overlay')
+
+
+
+
+        openInfoboxButtons.forEach(button => {
+
+            button.addEventListener('click', () => {
+
+                const infobox = document.querySelector(button.dataset.infoboxTarget)
+
+                openInfobox(infobox)
+
+            })
+
+        })
+
+
+
+
+        overlay.addEventListener('click', () => {
+
+            const infoboxs = document.querySelectorAll('.infobox.active')
+
+            infoboxs.forEach(infobox => {
+
+                closeInfobox(infobox)
+
+            })
+
+        })
+
+
+
+
+        closeInfoboxButtons.forEach(button => {
+
+            button.addEventListener('click', () => {
+
+                const infobox = button.closest('.infobox')
+
+                closeInfobox(infobox)
+
+            })
+
+        })
+
+
+
+
+        function openInfobox(infobox) {
+
+            if (infobox == null) return
+
+            infobox.classList.add('active')
+
+            overlay.classList.add('active')
+
+        }
+
+        function closeInfobox(infobox) {
+
+            if (infobox == null) return
+
+            infobox.classList.remove('active')
+
+            overlay.classList.remove('active')
+
+        }
+
+    </script>
+    <!--END Java für about box-->
+
+    <script>
+        function play() {
+            var audio = document.getElementById('audio');
+
+            if (audio.paused) {
+                audio.play();
+                $('#play').removeClass('glyphicon-play-circle')
+                $('#play').addClass('glyphicon-pause')
+
+            } else {
+                audio.pause();
+                audio.currentTime = 0
+                $('#play').addClass('glyphicon-play-circle')
+                $('#play').removeClass('glyphicon-pause')
+
+            }
+        }
+
+
+    </script>
+
+    <script>
+        function play2() {
+            var audio = document.getElementById('audio2');
+
+            if (audio2.paused) {
+                audio2.play();
+                $('#play2').removeClass('glyphicon-play-circle')
+                $('#play2').addClass('glyphicon-pause')
+
+            } else {
+                audio2.pause();
+                audio2.currentTime = 0
+                $('#play2').addClass('glyphicon-play-circle')
+                $('#play2').removeClass('glyphicon-pause')
+
+            }
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>
